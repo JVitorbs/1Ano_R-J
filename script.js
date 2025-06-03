@@ -1,31 +1,45 @@
+// Configurações de login
+const SENHA_CORRETA = "Stitch"; // Você pode mudar essa senha
 let secaoAtual = 'inicio';
+let musicStarted = false;
 
-document.addEventListener('DOMContentLoaded', function() {
-  // Elementos de música
-  const bgMusic = document.getElementById('bg-music');
-  const musicToggle = document.getElementById('music-toggle');
+// Verificar senha ao entrar
+function verificarSenha() {
+  const senhaInserida = document.getElementById('password-input').value;
+  const loginError = document.getElementById('login-error');
+  const loginScreen = document.getElementById('login-screen');
   
-  // Verifica se há uma preferência salva
-  const musicPreference = localStorage.getItem('musicPreference');
-  
-  // Configuração inicial
-  if (musicPreference === 'on') {
-    bgMusic.volume = 0.3;
-    bgMusic.play().catch(e => console.log("Autoplay bloqueado:", e));
+  if (senhaInserida === SENHA_CORRETA) {
+    loginScreen.style.opacity = '0';
+    setTimeout(() => {
+      loginScreen.style.display = 'none';
+      document.getElementById('inicio').classList.remove('hidden');
+      document.getElementById('inicio').classList.add('active');
+      
+      // Inicia a música após login
+      if (!musicStarted) {
+        startMusic();
+        musicStarted = true;
+      }
+    }, 500);
+  } else {
+    loginError.classList.remove('hidden');
+    setTimeout(() => {
+      loginError.classList.add('hidden');
+    }, 3000);
   }
-  
-  // Atualiza o ícone
-  updateMusicIcon();
-  
-  // Listener para interação do usuário
-  document.body.addEventListener('click', function firstInteraction() {
-    if (bgMusic.paused && musicPreference !== 'off') {
-      bgMusic.play().catch(e => console.log("Reprodução bloqueada:", e));
-    }
-    document.body.removeEventListener('click', firstInteraction);
-  }, { once: true });
-});
+}
 
+// Iniciar música após login
+function startMusic() {
+  const bgMusic = document.getElementById('bg-music');
+  bgMusic.volume = 0.3;
+  bgMusic.play().catch(e => console.log("Reprodução bloqueada:", e));
+  localStorage.setItem('musicPreference', 'on');
+  updateMusicIcon();
+}
+
+// Controle de música
 function toggleMusic() {
   const bgMusic = document.getElementById('bg-music');
   const musicToggle = document.getElementById('music-toggle');
@@ -41,6 +55,7 @@ function toggleMusic() {
   updateMusicIcon();
 }
 
+// Atualizar ícone do controle de música
 function updateMusicIcon() {
   const bgMusic = document.getElementById('bg-music');
   const musicToggle = document.getElementById('music-toggle');
@@ -53,6 +68,8 @@ function updateMusicIcon() {
     musicToggle.title = 'Desligar música';
   }
 }
+
+// Navegação entre seções
 function trocarSecao(secaoNova) {
   if (secaoNova === secaoAtual) return;
 
@@ -99,7 +116,30 @@ function trocarSecao(secaoNova) {
 
 const ordemSecoes = ['inicio', 'galeria', 'linha-do-tempo', 'carta', 'surpresa'];
 
+// Mostrar surpresa
 function mostrarSurpresa() {
   const msg = document.getElementById('mensagem-surpresa');
   msg.classList.remove('hidden');
 }
+
+// Inicialização
+document.addEventListener('DOMContentLoaded', function() {
+  // Configurações iniciais
+  document.querySelectorAll('section').forEach(section => {
+    section.classList.remove('active');
+    section.classList.add('hidden');
+  });
+  
+  // Permite enviar com Enter
+  document.getElementById('password-input').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+      verificarSenha();
+    }
+  });
+  
+  // Configura música (sem iniciar)
+  const bgMusic = document.getElementById('bg-music');
+  bgMusic.volume = 0;
+  setTimeout(() => { bgMusic.volume = 0.3; }, 1000);
+  updateMusicIcon();
+});

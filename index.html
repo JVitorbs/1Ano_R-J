@@ -3,11 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>1 Ano de Nós 💖</title>
+  <title>💖 1 Ano de Nós 💖</title>
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
 </head>
 <body>
+
+  <!-- Tela de Login -->
+  <div id="login-screen" class="login-container">
+    <div class="login-box">
+      <h2>💖 1 Ano de Nós 💖</h2>
+      <p>Dica da senha: Seu filme favorito</p>
+      <input type="password" id="password-input" placeholder="Senha">
+      <button onclick="verificarSenha()">Acessar</button>
+      <p id="login-error" class="hidden">Senha incorreta! Não é esse filme não.</p>
+    </div>
+  </div>
 
   <!-- Início -->
   <section id="inicio" class="active">
