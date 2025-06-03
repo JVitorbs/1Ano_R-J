@@ -5,6 +5,8 @@ const SENHA_CORRETA = "Stitch"; // Senha de acesso (pode ser alterada)
 const VOLUME_MUSICA = 0.3;      // Volume padrão da música (0 a 1)
 let secaoAtual = 'inicio';      // Seção inicial do site
 let musicStarted = false;       // Controle de música iniciada
+let currentImageIndex = 0;      // Índice da imagem atual na lightbox
+const images = [];              // Array para armazenar as imagens da galeria
 
 /******************************
  *         LOGIN SYSTEM       *
@@ -91,21 +93,54 @@ function trocarSecao(secaoNova) {
   const atual = document.getElementById(secaoAtual);
   const nova = document.getElementById(secaoNova);
 
-  // Prepara animação
+  // Fecha o lightbox se estiver aberto
+  if (!document.getElementById('lightbox').classList.contains('hidden')) {
+    closeLightbox();
+  }
+
+  // Remove classes ativas
+  const secoes = document.querySelectorAll('section');
+  secoes.forEach(s => {
+    s.classList.remove('active', 'slide-in-left', 'slide-in-right', 'slide-out-left', 'slide-out-right');
+  });
+
+  const links = document.querySelectorAll('.navbar a');
+  links.forEach(link => link.classList.remove('active'));
+
+  // Ativa o link correspondente
+  const linkAtivo = document.querySelector(`.navbar a[href="#${secaoNova}"]`);
+  linkAtivo.classList.add('active');
+
+  // Determina a direção da animação
   const indiceAtual = ordemSecoes.indexOf(secaoAtual);
   const indiceNovo = ordemSecoes.indexOf(secaoNova);
   const vaiParaDireita = indiceNovo > indiceAtual;
 
-  // Configura direção da animação
-  atual.classList.add(vaiParaDireita ? 'slide-out-left' : 'slide-out-right');
-  nova.classList.add(vaiParaDireita ? 'slide-in-right' : 'slide-in-left');
-  nova.style.display = 'block';
+  // Configura as animações
+  if (vaiParaDireita) {
+    atual.classList.add('slide-out-left');
+    nova.classList.add('slide-in-right');
+  } else {
+    atual.classList.add('slide-out-right');
+    nova.classList.add('slide-in-left');
+  }
 
-  // Atualiza estado após animação
+  // Mostra a nova seção
+  nova.style.display = 'block';
+  nova.classList.add('active');
+
+  // Atualiza a seção atual após a animação
   setTimeout(() => {
     atual.style.display = 'none';
     secaoAtual = secaoNova;
-  }, 500); // Duração da animação
+    
+    // Força redesenho da galeria para evitar bugs visuais
+    if (secaoNova === 'galeria') {
+      document.querySelectorAll('.galeria img').forEach(img => {
+        img.style.display = 'block';
+      });
+    }
+  }, 500);
 }
 
 /******************************
@@ -114,6 +149,58 @@ function trocarSecao(secaoNova) {
 function mostrarSurpresa() {
   const msg = document.getElementById('mensagem-surpresa');
   msg.classList.remove('hidden'); // Revela mensagem
+}
+
+/******************************
+ *       GALERIA/LIGHTBOX     *
+ ******************************/
+function initGallery() {
+  // Preenche o array com as imagens da galeria
+  const galleryImages = document.querySelectorAll('.galeria img');
+  galleryImages.forEach(img => images.push(img));
+  
+  // Adiciona eventos de clique para cada imagem
+  images.forEach((img, index) => {
+    img.addEventListener('click', () => openLightbox(index));
+  });
+  
+  // Configura eventos dos controles
+  document.getElementById('close-lightbox').addEventListener('click', closeLightbox);
+  document.getElementById('prev-btn').addEventListener('click', showPrevImage);
+  document.getElementById('next-btn').addEventListener('click', showNextImage);
+  
+  // Navegação por teclado
+  document.addEventListener('keydown', (e) => {
+    const lightbox = document.getElementById('lightbox');
+    if (!lightbox.classList.contains('hidden')) {
+      if (e.key === 'ArrowLeft') showPrevImage();
+      if (e.key === 'ArrowRight') showNextImage();
+      if (e.key === 'Escape') closeLightbox();
+    }
+  });
+}
+
+function openLightbox(index) {
+  currentImageIndex = index;
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  
+  lightboxImg.src = images[index].src;
+  lightbox.classList.remove('hidden');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.add('hidden');
+}
+
+function showNextImage() {
+  currentImageIndex = (currentImageIndex + 1) % images.length;
+  document.getElementById('lightbox-img').src = images[currentImageIndex].src;
+}
+
+function showPrevImage() {
+  currentImageIndex = (currentImageIndex - 1 + images.length) % images.length;
+  document.getElementById('lightbox-img').src = images[currentImageIndex].src;
 }
 
 /******************************
@@ -136,6 +223,9 @@ document.addEventListener('DOMContentLoaded', function() {
   bgMusic.volume = 0;
   setTimeout(() => { bgMusic.volume = VOLUME_MUSICA; }, 1000);
   updateMusicIcon();
+  
+  // Inicializa a galeria
+  initGallery();
 });
 
 /******************************
