@@ -1,7 +1,7 @@
 /******************************
  *       CONFIGURAÇÕES        *
  ******************************/
-const SENHA_CORRETA = "Stitch"; // Senha de acesso (pode ser alterada)
+const SENHA_CORRETA = "Escolho"; // Senha de acesso (pode ser alterada)
 const VOLUME_MUSICA = 0.3;      // Volume padrão da música (0 a 1)
 let secaoAtual = 'inicio';      // Seção inicial do site
 let musicStarted = false;       // Controle de música iniciada
