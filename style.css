@@ -42,6 +42,11 @@ body {
   margin-bottom: 20px;
 }
 
+.login-box h2 {
+  color: #ff2e6a;
+  margin-bottom: 20px;
+}
+
 .login-box input {
   width: 100%;
   padding: 12px;
@@ -177,6 +182,13 @@ h1 {
 .carta {
   background-color: #ffe4ec;
   padding: 15px;
+  border-radius: 8px;
+  line-height: 1.6;
+}
+
+.carta p{
+  background-color: #ffe4ec;
+  padding: 5px;
   border-radius: 8px;
   line-height: 1.6;
 }
