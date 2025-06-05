@@ -42,7 +42,12 @@ body {
   margin-bottom: 20px;
 }
 
-.login-box h2 {
+.login-box p {
+  color: #555555;
+  margin-bottom: 20px;
+}
+
+.login-box h3 {
   color: #ff2e6a;
   margin-bottom: 20px;
 }
@@ -178,6 +183,15 @@ h1 {
   padding: 10px;
   border-radius: 8px;
 }
+
+.imagem-encontro {
+  display: block;
+  margin: 10px auto 0 auto; /* Centraliza horizontalmente */
+  width: 300px;
+  height: auto;
+  border-radius: 8px;
+}
+
 
 .carta {
   background-color: #ffe4ec;
