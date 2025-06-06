@@ -1,7 +1,6 @@
 * {
   box-sizing: border-box;
   margin: 0;
-
   padding: 0;
 }
 
@@ -142,7 +141,7 @@ h1 {
   color: #ff2e6a;
 }
 
-/* Adicione estas regras ao seu CSS */
+/* Galeria */
 .galeria {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -167,7 +166,6 @@ h1 {
   transform: scale(1.03);
 }
 
-/* Garante que a seção galeria tenha altura suficiente */
 #galeria {
   min-height: calc(100vh - 80px);
 }
@@ -186,12 +184,11 @@ h1 {
 
 .imagem-encontro {
   display: block;
-  margin: 10px auto 0 auto; /* Centraliza horizontalmente */
+  margin: 10px auto 0 auto;
   width: 300px;
   height: auto;
   border-radius: 8px;
 }
-
 
 .carta {
   background-color: #ffe4ec;
@@ -229,7 +226,6 @@ h1 {
   display: none;
 }
 
-
 section {
   position: absolute;
   width: 100%;
@@ -244,7 +240,6 @@ section.active {
   transform: translateX(0);
 }
 
-/* Animações de entrada */
 .slide-in-right {
   animation: slideInRight 0.5s forwards;
 }
@@ -253,7 +248,6 @@ section.active {
   animation: slideInLeft 0.5s forwards;
 }
 
-/* Animações de saída */
 .slide-out-left {
   animation: slideOutLeft 0.5s forwards;
 }
@@ -306,13 +300,12 @@ section.active {
   }
 }
 
-/* Seção inicial */
 #inicio {
   transform: translateX(0);
   opacity: 1;
 }
 
-/* Adicione isso ao seu style.css */
+/* Music Control */
 .music-control {
   position: fixed;
   top: 10px;
@@ -341,7 +334,7 @@ section.active {
   transform: scale(1.1);
 }
 
-/* Estilos da Lightbox */
+/* Lightbox Styles */
 #lightbox {
   position: fixed;
   top: 0;
@@ -353,16 +346,44 @@ section.active {
   display: flex;
   align-items: center;
   justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
 }
 
-#lightbox.hidden {
-  display: none;
+#lightbox.show {
+  opacity: 1;
+  pointer-events: all;
 }
 
 #lightbox-img {
   max-height: 80vh;
   max-width: 90vw;
   object-fit: contain;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  transform-origin: center center;
+  cursor: grab;
+  user-select: none;
+}
+
+#lightbox-img:active {
+  cursor: grabbing;
+}
+
+#lightbox-img.zoom-in {
+  animation: zoomIn 0.3s forwards;
+}
+
+#lightbox-img.zoom-out {
+  animation: zoomOut 0.3s forwards;
+}
+
+#lightbox-img.slide-left {
+  animation: slideLeft 0.3s forwards;
+}
+
+#lightbox-img.slide-right {
+  animation: slideRight 0.3s forwards;
 }
 
 .close-btn {
@@ -401,4 +422,48 @@ section.active {
 
 .nav-btn:hover {
   background: rgba(255, 94, 142, 0.8);
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes zoomOut {
+  from {
+    transform: scale(1);
+    opacity: 1;
+  }
+  to {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+@keyframes slideLeft {
+  from {
+    transform: translateX(100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slideRight {
+  from {
+    transform: translateX(-100px);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
