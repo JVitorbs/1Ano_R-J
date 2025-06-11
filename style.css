@@ -248,15 +248,42 @@ h1 {
     color: #ff2e6a;
 }
 
-.youtube-container {
-    position: relative;
-    padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
-    height: 0;
-    overflow: hidden;
-    margin: 0 auto 20px;
-    max-width: 800px;
-    border-radius: 12px;
-    background-color: #000;
+
+
+.fallback-message {
+    display: none;
+    background-color: #ffe4ec;
+    padding: 15px;
+    border-radius: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+
+.fallback-message a {
+    color: #ff2e6a;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.fallback-message a:hover {
+    text-decoration: underline;
+}
+
+/* Estilo para quando o vídeo não carrega */
+.youtube-container iframe[src*="unavailable"] {
+  display: none; /* Esconde o iframe quando dá erro */
+}
+
+/* Mostra mensagem alternativa */
+.youtube-container .fallback-message {
+  display: none;
+  padding: 20px;
+  text-align: center;
+  color: #ff2e6a;
+}
+
+.youtube-container iframe[src*="unavailable"] + .fallback-message {
+  display: block;
 }
 
 .youtube-container iframe {
@@ -278,6 +305,55 @@ h1 {
 
 .hidden {
   display: none;
+}
+
+.youtube-container {
+  position: relative;
+  height: 315px; /* Altura fixa igual ao iframe do YouTube */
+  max-width: 560px; /* Largura máxima igual ao iframe */
+  margin: 20px auto;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.playlist-cover {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.playlist-cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Foca no centro e corta o excesso */
+  object-position: center; /* Garante que o centro esteja visível */
+}
+
+.playlist-cover:hover img {
+  transform: scale(1.02);
+}
+
+.play-button {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: rgba(255, 46, 106, 0.8);
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 24px;
+  transition: all 0.3s ease;
+}
+
+.play-button:hover {
+  background-color: #ff2e6a;
+  transform: translate(-50%, -50%) scale(1.1);
 }
 
 section {

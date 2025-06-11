@@ -150,6 +150,18 @@ function mostrarSurpresa() {
     document.querySelector('.btn-surpresa').style.display = 'none';
 }
 
+function mostrarPlayer() {
+  const cover = document.getElementById('playlist-cover');
+  const player = document.getElementById('youtube-player');
+  
+  cover.classList.add('hidden');
+  player.classList.remove('hidden');
+  
+  // Opcional: Forçar recarregamento do iframe se necessário
+  const iframe = player.querySelector('iframe');
+  iframe.src = iframe.src; // Isso reinicia o player
+}
+
 /******************************
  *       GALERIA/LIGHTBOX     *
  ******************************/

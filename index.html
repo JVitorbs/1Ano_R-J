@@ -154,11 +154,25 @@
                   <p>Aqui está nossa playlist especial:</p>
               </div>
               <div class="youtube-container">
+                <!-- Imagem de capa (visível inicialmente) -->
+                <div id="playlist-cover" class="playlist-cover" onclick="mostrarPlayer()">
+                  <img src="/imagens/Foto 48.jpg" alt="Capa da nossa playlist">
+                  <div class="play-button">▶</div>
+                </div>
+                
+                <!-- Player (oculto inicialmente) -->
+                <div id="youtube-player" class="hidden">
                   <iframe width="560" height="315" 
-                  src="https://www.youtube.com/embed/videoseries?list=PL0mNx6RzIDS8x4Hm8qKCEOuto7sE5vjwQ" 
-                  frameborder="0" 
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                  allowfullscreen></iframe>
+                    src="https://www.youtube-nocookie.com/embed/videoseries?list=PL0mNx6RzIDS8x4Hm8qKCEOuto7sE5vjwQ&rel=0&modestbranding=1" 
+                    title="Nossa playlist especial"
+                    frameborder="0" 
+                    allowfullscreen>
+                  </iframe>
+                </div>
+                
+                <div class="fallback-message">
+                  <p>Se o vídeo não aparecer, <a href="https://youtube.com/playlist?list=PL0mNx6RzIDS8x4Hm8qKCEOuto7sE5vjwQ" target="_blank">clique aqui para assistir no YouTube</a></p>
+                </div>
               </div>
               <p class="playlist-footer">Cada música foi escolhida com todo meu amor ❤️</p>
           </div>
