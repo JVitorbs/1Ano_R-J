@@ -145,11 +145,24 @@
 
   <!-- Surpresa -->
   <section id="surpresa">
-    <h1>🎁 Uma Surpresa!</h1>
-    <div class="surpresa">
-      <button class="btn-surpresa" onclick="mostrarSurpresa()">Clique aqui!</button>
-      <p id="mensagem-surpresa" class="hidden">💖 <strong>Você é o amor da minha vida!</strong> 💖 Aqui está uma playlist que preparei</p>
-    </div>
+      <h1>🎁 Uma Surpresa!</h1>
+      <div class="surpresa">
+          <button class="btn-surpresa" onclick="mostrarSurpresa()">Clique aqui!</button>
+          <div id="surpresa-content" class="hidden">
+              <div class="mensagem-surpresa">
+                  <p>💖 <strong>Você é o amor da minha vida!</strong> 💖</p>
+                  <p>Aqui está nossa playlist especial:</p>
+              </div>
+              <div class="youtube-container">
+                  <iframe width="560" height="315" 
+                  src="https://www.youtube.com/embed/videoseries?list=PL0mNx6RzIDS8x4Hm8qKCEOuto7sE5vjwQ" 
+                  frameborder="0" 
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                  allowfullscreen></iframe>
+              </div>
+              <p class="playlist-footer">Cada música foi escolhida com todo meu amor ❤️</p>
+          </div>
+      </div>
   </section>
 
   <!-- Barra de Navegação -->

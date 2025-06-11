@@ -138,8 +138,16 @@ function trocarSecao(secaoNova) {
  *         SURPRESA           *
  ******************************/
 function mostrarSurpresa() {
-  const msg = document.getElementById('mensagem-surpresa');
-  msg.classList.remove('hidden');
+    const surpresaContent = document.getElementById('surpresa-content');
+    surpresaContent.classList.remove('hidden');
+    
+    // Rola suavemente até a surpresa
+    setTimeout(() => {
+        surpresaContent.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 100);
+    
+    // Remove o botão depois de clicado (opcional)
+    document.querySelector('.btn-surpresa').style.display = 'none';
 }
 
 /******************************
