@@ -356,6 +356,21 @@ h1 {
   transform: translate(-50%, -50%) scale(1.1);
 }
 
+@media (max-width: 600px) {
+  .navbar a {
+    padding: 10px 5px;
+    font-size: 14px;
+  }
+  
+  .galeria img {
+    width: 100%;
+  }
+  
+  .linha-do-tempo div {
+    padding: 10px;
+  }
+}
+
 section {
   position: absolute;
   width: 100%;
